@@ -6,6 +6,8 @@
     >
       @for (product of allProducts; track product._id) {
       <app-product-card [product]="product" />
+      }@empty {
+      <h2 class="text-2xl font-bold">Loading...</h2>
       }
     </div>
   </div>
