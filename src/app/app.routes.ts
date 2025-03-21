@@ -9,6 +9,7 @@ import { CartComponent } from './features/cart/components/cart/cart.component';
 import { NotFoundComponent } from './core/auth/components/not-found/not-found.component';
 import { ProductListComponent } from './features/product/components/product-list/product-list.component';
 import { BrandListComponent } from './features/brands/components/brand-list/brand-list.component';
+import { ProductDetailsComponent } from './features/product/components/product-details/product-details.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,7 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'categories', component: CategoryComponent },
       { path: 'products', component: ProductListComponent },
+      { path: 'product-details/:slug/:id', component: ProductDetailsComponent },
       { path: 'brands', component: BrandListComponent },
       { path: 'cart', component: CartComponent },
       { path: '**', component: NotFoundComponent },

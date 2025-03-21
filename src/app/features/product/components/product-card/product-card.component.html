@@ -1,4 +1,5 @@
 <div
+  [routerLink]="['/product-details', product.slug, product._id]"
   class="hover:border border-main p-2 rounded hover:shadow-main cursor-pointer group duration-500"
 >
   <img [src]="product.imageCover" alt="product image" class="w-full" />
