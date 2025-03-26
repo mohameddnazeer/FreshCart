@@ -7,7 +7,11 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  name = new FormControl(null, [Validators.required]);
+  name = new FormControl(null, [
+    Validators.required,
+    Validators.minLength(3),
+    Validators.maxLength(20)
+  ]);
 
   submitInput(){
     console.log(this.name.value);
