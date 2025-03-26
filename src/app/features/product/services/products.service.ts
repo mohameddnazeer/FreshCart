@@ -13,7 +13,7 @@ export class ProductsService {
     return this.http.get(environments.baseUrl + 'products');
   }
 
-  getProductById(id: string): Observable<any> {
+  getProductById(id: string | null): Observable<any> {
     return this.http.get(environments.baseUrl + `products/${id}`);
   }
 }

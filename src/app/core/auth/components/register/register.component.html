@@ -1,1 +1,11 @@
-<p>register works!</p>
+<section class="my-10">
+<div class="container mx-auto">
+    
+    <div class="max-w-lg mx-auto mb-5">
+        <label for="name" class="main-label">Your name</label>
+        <input type="text" id="name" [formControl]="name" class="main-input" placeholder="Enter Your Name"  />
+        <button (click)="submitInput()" class="main-btn opacity-100 translate-y-0 mt-4">submit</button>
+    </div>
+  
+</div>
+</section>

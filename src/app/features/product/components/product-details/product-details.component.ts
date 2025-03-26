@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ProductsService } from '../../services/products.service';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-product-details',
@@ -9,16 +11,31 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductDetailsComponent {
   productId: string | null = null;
-  // private readonly route: ActivatedRoute;
+  productDetails : Product= {} as Product;
+  // private readonly route= inject(ActivatedRoute);
   // or
   constructor(private readonly route: ActivatedRoute) {}
+  private readonly productsService = inject(ProductsService);
+
+
+
+  getProductDetails(id :string | null){
+    this.productsService.getProductById(id).subscribe({
+      next:(response)=>{
+        // console.log('Product Details:', response.data);
+        this.productDetails = response.data;
+      },
+      error:()=>{},
+      complete:()=>{}
+    })
+  }
+
 
   ngOnInit(): void {
-    // this.route.snapshot.params.id
-    // or but subscribe is better because it will update the value if the route changes
     this.route.paramMap.subscribe((params) => {
       this.productId = params.get('id');
-      console.log('Product ID:', this.productId);
+      // console.log('Product ID:', this.productId);
     });
+    this.getProductDetails(this.productId);
   }
 }

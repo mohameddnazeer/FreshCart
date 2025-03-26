@@ -1,7 +1,6 @@
-<div
-  [routerLink]="['/product-details', product.slug, product._id]"
-  class="hover:border border-main p-2 rounded hover:shadow-main cursor-pointer group duration-500"
->
+<div  class="hover:border border-main p-2 rounded hover:shadow-main cursor-pointer group duration-500">
+  <div
+  [routerLink]="['/product-details', product.slug, product._id]">
   <img [src]="product.imageCover" alt="product image" class="w-full" />
   <h5 class="text-main">{{ product.category.name }}</h5>
   <h4 class="font-bold line-clamp-1">{{ product.title }}</h4>
@@ -12,9 +11,6 @@
       >{{ product.ratingsAverage }}</span
     >
   </div>
-  <button
-    class="bg-main text-white w-full text-center p-2 rounded cursor-pointer translate-y-full opacity-0 duration-500 hover:bg-main/60 group-hover:translate-y-0 group-hover:opacity-100"
-  >
-    Add To Cart
-  </button>
+</div>
+  <button class="main-btn">Add To Cart</button>
 </div>
