@@ -2,23 +2,26 @@
 <div class="max-w-lg mx-auto shadow border border-gray-100 p-10 rounded-2xl">
     <h2 class="mb-5 text-2xl">Register Now:</h2>
 
-    <form >
+    <form [formGroup]="authForm" (ngSubmit)="submitInput()">
         <div class="max-w-lg mx-auto mb-5">
-            <input type="text" id="name"  class="main-input" placeholder="Enter Your Name"  />
+            <input type="text"  formControlName="name"  class="main-input" placeholder="Enter Your Name"  />
+            <validation-messages [controls]="authForm.get('name')"/>
         </div>
         <div class="max-w-lg mx-auto mb-5">
-            <input type="email" id="email" class="main-input" placeholder="Enter Your Email"  />
+            <input type="email" formControlName="email" class="main-input" placeholder="Enter Your Email"  />
+            <validation-messages [controls]="authForm.get('email')"/>
         </div>
         <div class="max-w-lg mx-auto mb-5">
-            <input type="password" id="pass"  class="main-input" placeholder="Enter Your Password"  />
+            <input type="password" formControlName="password"  class="main-input" placeholder="Enter Your Password"  />
+            <validation-messages [controls]="authForm.get('password')"/>
         </div>
         <div class="max-w-lg mx-auto mb-5">
-            <input type="password" id="rePass"  class="main-input" placeholder="Enter Your RePassword"  />
+            <input type="password" formControlName="rePassword"  class="main-input" placeholder="Enter Your RePassword"  />
+            <validation-messages [controls]="authForm.get('rePassword')"/>
         </div>
         <div class="max-w-lg mx-auto mb-5">
-            <button (click)="submitInput()" class="main-btn opacity-100 translate-y-0 mt-4">submit</button>
+            <button  class="main-btn opacity-100 translate-y-0 mt-4">submit</button>
         </div>
     </form>
-
 </div>
 </section>
