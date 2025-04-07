@@ -1,1 +1,34 @@
-<p>login works!</p>
+<section class="my-10 mt-20">
+  <div class="max-w-lg mx-auto shadow border border-gray-100 p-10 rounded-2xl">
+    <h2 class="mb-5 text-2xl">Login Now:</h2>
+    <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+      <div class="max-w-lg mx-auto mb-5">
+        <input
+          type="email"
+          formControlName="email"
+          class="main-input"
+          placeholder="Enter Your Email"
+        />
+        <validation-messages [controls]="authForm.get('email')" />
+      </div>
+      <div class="max-w-lg mx-auto mb-5">
+        <input
+          type="password"
+          formControlName="password"
+          class="main-input"
+          placeholder="Enter Your Password"
+        />
+        <validation-messages [controls]="authForm.get('password')" />
+      </div>
+      <div class="max-w-lg mx-auto mb-5">
+        <button [disabled]="authForm.invalid || !isLoading" [class.bg-gray-500]="authForm.invalid || !isLoading" type="submit" class="main-btn opacity-100 translate-y-0 mt-4">{{isLoading? "login": "loading..."}}</button>
+      </div>
+
+      @if(resMsg){
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <span class="font-medium">{{resMsg}}</span>
+        </div>
+    }
+    </form>
+  </div>
+</section>

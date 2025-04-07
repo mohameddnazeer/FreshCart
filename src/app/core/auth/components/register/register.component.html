@@ -17,11 +17,17 @@
         </div>
         <div class="max-w-lg mx-auto mb-5">
             <input type="password" formControlName="rePassword"  class="main-input" placeholder="Enter Your RePassword"  />
-            <validation-messages [controls]="authForm.get('rePassword')"/>
+            <validation-messages [controls]="authForm"/>
         </div>
         <div class="max-w-lg mx-auto mb-5">
-            <button  class="main-btn opacity-100 translate-y-0 mt-4">submit</button>
+            <button  [disabled]="authForm.invalid || !isLoading" [class.bg-gray-500]="authForm.invalid || !isLoading" class="main-btn opacity-100 translate-y-0 mt-4">{{!isLoading? "Loading" : "submit"}}</button>
         </div>
+
+        @if(resMsg){
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium">{{resMsg}}</span>
+            </div>
+        }
     </form>
 </div>
 </section>
