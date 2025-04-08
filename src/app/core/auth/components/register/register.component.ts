@@ -1,11 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { AbstractControl, Form, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationMessagesComponent } from "../../../../shared/components/validation-messages/validation-messages.component";
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { passwordMatchValidator } from '../../../../shared/helpers/password-match';
 @Component({
-  selector: 'app-register',
+  selector: 'app-register',  
   imports: [ReactiveFormsModule, ValidationMessagesComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   resMsg : string ="";
   isLoading: boolean = true;
+  authForm!: FormGroup;
   private readonly AuthService = inject(AuthService);
   private readonly toastr = inject(ToastrService);
   private readonly router = inject(Router);
@@ -24,7 +26,8 @@ export class RegisterComponent {
   ]);
 
   // form group
-  authForm = new FormGroup({
+formInit(){
+  this.authForm = new FormGroup({
     name: this.name,
     email: new FormControl(null, [
       Validators.required,
@@ -42,17 +45,10 @@ export class RegisterComponent {
       Validators.maxLength(20),
       // Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/)
     ]),
-  }, {validators: this.passwordMatchValidator});
+  }, {validators: passwordMatchValidator});
 
-  passwordMatchValidator(control: AbstractControl){
-    let pass = control.get('password')?.value;
-    let rePass = control.get('rePassword')?.value;
-    if(pass == rePass){
-      return null;
-    }else{
-      return { passwordMismatch: true };
-    }
-  }
+}
+
 
   submitInput(){
     this.isLoading = false;
@@ -64,13 +60,15 @@ export class RegisterComponent {
           if(response.message == 'success'){
             this.router.navigate(['/login']);
           }
+          this.isLoading = true;
+
         },
         error:(error)=>{
           this.resMsg = error.error.message;
+          this.isLoading = true;
+
         },
-        complete:()=>{
-        this.isLoading = true;
-        }
+        
       })
     }else{
       this.authForm.get('rePassword')?.setValue("");
@@ -78,5 +76,9 @@ export class RegisterComponent {
     }
   }
 
-  
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.formInit();
+  }
 }

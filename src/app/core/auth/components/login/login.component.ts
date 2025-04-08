@@ -14,11 +14,13 @@ import { ValidationMessagesComponent } from '../../../../shared/components/valid
 export class LoginComponent {
   resMsg: string = '';
   isLoading:boolean = true;
+  authForm!: FormGroup;
   private readonly AuthService = inject(AuthService);
   private readonly router = inject(Router)
   private readonly toastr = inject(ToastrService);
 
-  authForm = new FormGroup({
+formInit(){
+  this.authForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [
       Validators.required,
@@ -27,6 +29,7 @@ export class LoginComponent {
       // Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/),
     ]),
   });
+}
 
   submitForm() {
     this.isLoading = false;
@@ -35,14 +38,25 @@ export class LoginComponent {
         next:(response)=>{
           this.toastr.success('Login successful!', 'Welcome');
             this.router.navigate(['/home']);
+            this.isLoading = true;
         },
         error:(error)=>{
           this.resMsg = error.error.message;
-        },
-        complete:()=>{
           this.isLoading = true;
-        }
+        },
       })
     }
+  }
+
+  isShowPassword: boolean = false;
+
+  showPassword(){
+    this.isShowPassword= !this.isShowPassword;
+  }
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.formInit();
   }
 }

@@ -13,22 +13,39 @@
       </div>
       <div class="max-w-lg mx-auto mb-5">
         <input
-          type="password"
+          [type]="isShowPassword ? 'text' : 'password'"
           formControlName="password"
           class="main-input"
           placeholder="Enter Your Password"
         />
+        <button
+          type="button"
+          (click)="showPassword()"
+          class="text-gray-400 underline text-right w-full mt-2 cursor-pointer"
+        >
+          Show Password
+        </button>
         <validation-messages [controls]="authForm.get('password')" />
       </div>
       <div class="max-w-lg mx-auto mb-5">
-        <button [disabled]="authForm.invalid || !isLoading" [class.bg-gray-500]="authForm.invalid || !isLoading" type="submit" class="main-btn opacity-100 translate-y-0 mt-4">{{isLoading? "login": "loading..."}}</button>
+        <button
+          [disabled]="authForm.invalid || !isLoading"
+          [class.bg-gray-500]="authForm.invalid || !isLoading"
+          type="submit"
+          class="main-btn opacity-100 translate-y-0 mt-4"
+        >
+          {{ isLoading ? "login" : "loading..." }}
+        </button>
       </div>
 
       @if(resMsg){
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-            <span class="font-medium">{{resMsg}}</span>
-        </div>
-    }
+      <div
+        class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert"
+      >
+        <span class="font-medium">{{ resMsg }}</span>
+      </div>
+      }
     </form>
   </div>
 </section>
