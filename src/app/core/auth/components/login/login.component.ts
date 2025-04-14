@@ -37,8 +37,11 @@ formInit(){
       this.AuthService.login(this.authForm.value).subscribe({
         next:(response)=>{
           this.toastr.success('Login successful!', 'Welcome');
+          this.isLoading = true;
+          if(response.message == 'success'){
+            this.AuthService.saveToken(response.token);
             this.router.navigate(['/home']);
-            this.isLoading = true;
+          }
         },
         error:(error)=>{
           this.resMsg = error.error.message;

@@ -10,11 +10,14 @@ import { NotFoundComponent } from './core/auth/components/not-found/not-found.co
 import { ProductListComponent } from './features/product/components/product-list/product-list.component';
 import { BrandListComponent } from './features/brands/components/brand-list/brand-list.component';
 import { ProductDetailsComponent } from './features/product/components/product-details/product-details.component';
+import { authGuard } from './core/guards/auth.guard';
+import { isLoggedGuard } from './core/guards/is-logged.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
+    canActivate: [isLoggedGuard], // This guard will protect all routes under this path
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
@@ -26,13 +29,16 @@ export const routes: Routes = [
     component: UserComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
+      { path: 'home', component: HomeComponent, title: 'Home' },
       { path: 'categories', component: CategoryComponent },
       { path: 'products', component: ProductListComponent },
       { path: 'product-details/:slug/:id', component: ProductDetailsComponent },
       { path: 'brands', component: BrandListComponent },
       { path: 'cart', component: CartComponent },
-      { path: '**', component: NotFoundComponent },
     ],
+    canActivate:[authGuard] // This guard will protect all routes under this path
+    // canActivateChild:[authGuard] // This guard will protect all child routes under this path
   },
+  { path: '**', component: NotFoundComponent },
+
 ];
