@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environments } from '../../../../environments/environments';
 import { Observable } from 'rxjs';
-
+import {jwtDecode} from 'jwt-decode';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   constructor(private https: HttpClient) { }
-
+  private  router = inject(Router);
   login(date :any): Observable<any>{
     return this.https.post(environments.baseUrl+'auth/signin',date)
   }
@@ -19,14 +19,37 @@ export class AuthService {
   }
 
   saveToken(token:string):void{
-    localStorage.setItem('authToken',token)
+    if(typeof localStorage != 'undefined')
+      localStorage.setItem('authToken',token)
   }
 
   getToken():string | null{
-    return localStorage.getItem('authToken')
+    if(typeof localStorage != 'undefined'){
+      return localStorage.getItem('authToken')
+    }
+    return null;
   }
 
   isAuthenticated():boolean{
-    return !!localStorage.getItem('authToken');
+    if(typeof localStorage != 'undefined')
+      return !!localStorage.getItem('authToken');
+
+    return false;
+  }
+  removeToken():void{
+    if(typeof localStorage != 'undefined')
+      localStorage.removeItem('authToken');
+  }
+
+  decodeToken(): void{
+    try{
+      if(typeof localStorage != 'undefined'){
+        const decode = jwtDecode(localStorage.getItem('authToken') as string);
+        console.log(decode );
+      }
+    }catch{
+      this.removeToken();
+      this.router.navigate(['/login']);
+    }
   }
 }
