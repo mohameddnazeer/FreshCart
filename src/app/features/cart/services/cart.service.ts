@@ -21,11 +21,11 @@ export class CartService {
     );
   }
 
-  updateProductQuantity(productId: string) {
+  updateProductQuantity(productId: string, count: number) {
     return this.https.put(
       environments.baseUrl + `cart/${productId}`,
       {
-        count: '1',
+        count,
       },
       {
         headers: {
