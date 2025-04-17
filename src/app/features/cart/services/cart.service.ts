@@ -9,10 +9,10 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 export class CartService {
   constructor(private https: HttpClient, private auth: AuthService) {}
 
-  addProductToCart(prodectId: string) {
+  addProductToCart(productId: string) {
     return this.https.post(
       environments.baseUrl + 'cart',
-      { prodectId },
+      { productId },
       {
         headers: {
           token: this.auth.getToken() as string,
