@@ -13,12 +13,7 @@ export class CartService {
   addProductToCart(productId: string): Observable<any> {
     return this.https.post(
       environments.baseUrl + 'cart',
-      { productId },
-      {
-        headers: {
-          token: this.auth.getToken() as string,
-        },
-      }
+      { productId }
     );
   }
 
@@ -27,36 +22,19 @@ export class CartService {
       environments.baseUrl + `cart/${productId}`,
       {
         count,
-      },
-      {
-        headers: {
-          token: this.auth.getToken() as string,
-        },
       }
     );
   }
 
   getAllProdectsInCart(): Observable<any> {
-    return this.https.get(environments.baseUrl + 'cart', {
-      headers: {
-        token: this.auth.getToken() as string,
-      },
-    });
+    return this.https.get(environments.baseUrl + 'cart');
   }
 
   removeProductFromCart(productId: string): Observable<any> {
-    return this.https.delete(environments.baseUrl + `cart/${productId}`, {
-      headers: {
-        token: this.auth.getToken() as string,
-      },
-    });
+    return this.https.delete(environments.baseUrl + `cart/${productId}`);
   }
 
   clearAllCart(): Observable<any> {
-    return this.https.delete(environments.baseUrl + 'cart', {
-      headers: {
-        token: this.auth.getToken() as string,
-      },
-    });
+    return this.https.delete(environments.baseUrl + 'cart');
   }
 }
