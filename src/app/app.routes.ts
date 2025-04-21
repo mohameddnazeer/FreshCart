@@ -5,13 +5,15 @@ import { LoginComponent } from './core/auth/components/login/login.component';
 import { RegisterComponent } from './core/auth/components/register/register.component';
 import { HomeComponent } from './features/home/components/home/home.component';
 import { CategoryComponent } from './features/category/components/category/category.component';
-import { CartComponent } from './features/cart/components/cart/cart.component';
 import { NotFoundComponent } from './core/auth/components/not-found/not-found.component';
 import { ProductListComponent } from './features/product/components/product-list/product-list.component';
 import { BrandListComponent } from './features/brands/components/brand-list/brand-list.component';
 import { ProductDetailsComponent } from './features/product/components/product-details/product-details.component';
 import { authGuard } from './core/guards/auth.guard';
 import { isLoggedGuard } from './core/guards/is-logged.guard';
+import { CartListComponent } from './features/cart/components/cart-list/cart-list.component';
+import { CheckoutComponent } from './features/orders/components/checkout/checkout.component';
+import { OrdersComponent } from './features/orders/components/orders/orders.component';
 
 export const routes: Routes = [
   {
@@ -34,7 +36,9 @@ export const routes: Routes = [
       { path: 'products', component: ProductListComponent },
       { path: 'product-details/:slug/:id', component: ProductDetailsComponent },
       { path: 'brands', component: BrandListComponent },
-      { path: 'cart', component: CartComponent },
+      { path: 'cart', component: CartListComponent },
+      {path:'checkout/:id', component:CheckoutComponent},
+      {path: 'allorders', component: OrdersComponent}
     ],
     canActivate:[authGuard] // This guard will protect all routes under this path
     // canActivateChild:[authGuard] // This guard will protect all child routes under this path

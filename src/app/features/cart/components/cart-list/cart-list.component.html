@@ -1,0 +1,42 @@
+@if(!isLoading){
+@if( cartDetails.numOfCartItems !=0){
+    <section class="container mx-auto shadow bg-light p-10 m-5">
+        <div class="flex justify-between items-center my-5">
+          <div>
+            <h2 class="text-3xl font-bold my-3">Shop Cart</h2>
+            <p class="text-main font-bold my-1">
+              Total cart price : {{ cartDetails.data.totalCartPrice }} EGP
+            </p>
+          </div>
+      
+          <button (click)="removeAllProductsFromCart()" class="bg-red-600 w-auto px-4 text-white text-xl rounded cursor-pointer hover:bg-red-900 transition duration-500" >Clear</button>
+        </div>
+        @for(item of cartDetails.data.products ; track $index){
+        <app-cart-item
+          (updateProductQuantity)="updateQuantity($event.id, $event.count)"
+          [product]="item"
+          (removeProduct)="removeItemFromCart($event)"
+        />
+        }
+      
+        <div class="flex justify-between items-center my-5">
+          <button [routerLink]="['/products']" class="main-btn opacity-100 w-auto">
+            <i class="fa fa-arrow-left" ></i>
+            Continue Shopping 
+          </button>
+          <button
+            [routerLink]="['/checkout',cartDetails.cartId]"
+            class="main-btn opacity-100 w-auto bg-black"
+          >
+            Go to checkout 
+            <span>{{ cartDetails.data.totalCartPrice.toFixed(2) }} EGP </span>
+            <i class="fa fa-arrow-right" ></i>
+          </button>
+        </div>
+      </section>
+}@else {
+    <h2 class="text-main text-center text-3xl my-10">Cart is Empty</h2>
+}
+}@else{
+<h2 class="text-center text-main text-3xl my-10">Loading</h2>
+}

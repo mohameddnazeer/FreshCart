@@ -1,0 +1,52 @@
+<section class="my-10 mt-20">
+    <div class="max-w-3xl mx-auto shadow border border-gray-100 p-10 rounded-2xl">
+      <h2 class="mb-5 text-2xl">Your Address:</h2>
+      <form [formGroup]="checkoutForm" (ngSubmit)="submitForm()">
+        <div class="max-w-lg mx-auto mb-5">
+          <input
+            type="text"
+            formControlName="city"
+            class="main-input"
+            placeholder="Enter Your city"
+          />
+          <validation-messages [controls]="checkoutForm.get('city')" />
+        </div>
+        <div class="max-w-lg mx-auto mb-5">
+          <input
+            type="text"
+            formControlName="phone"
+            class="main-input"
+            placeholder="Enter Your phone number"
+          />
+          <validation-messages [controls]="checkoutForm.get('phone')" />
+        </div>
+        <div class="max-w-lg mx-auto mb-5">
+          <textarea
+            formControlName="details"
+            class="main-input"
+            placeholder="Enter Your details "
+          ></textarea>
+          <validation-messages [controls]="checkoutForm.get('details')" />
+        </div>
+        <div class="max-w-lg mx-auto mb-5">
+          <button
+            [disabled]="checkoutForm.invalid || !isLoading"
+            [class.bg-gray-500]="checkoutForm.invalid || !isLoading"
+            type="submit"
+            class="main-btn opacity-100 translate-y-0 mt-4"
+          >
+            {{ isLoading ? "Pay Now" : "loading..." }}
+          </button>
+        </div>
+  
+        @if(resMsg){
+        <div
+          class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert"
+        >
+          <span class="font-medium">{{ resMsg }}</span>
+        </div>
+        }
+      </form>
+    </div>
+  </section>

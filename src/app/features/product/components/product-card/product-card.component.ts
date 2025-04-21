@@ -12,6 +12,7 @@ export class ProductCardComponent {
   @Input() product!: Product;
   @Output() addToCart = new EventEmitter<string>();
 
+
   onAddToCart() {
     this.addToCart.emit(this.product._id);
   }

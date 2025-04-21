@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environments } from '../../../../environments/environments';
 import { AuthService } from '../../../core/auth/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 export class CartService {
   constructor(private https: HttpClient, private auth: AuthService) {}
 
-  addProductToCart(productId: string) {
+  addProductToCart(productId: string): Observable<any> {
     return this.https.post(
       environments.baseUrl + 'cart',
       { productId },
@@ -21,7 +22,7 @@ export class CartService {
     );
   }
 
-  updateProductQuantity(productId: string, count: number) {
+  updateProductQuantity(productId: string, count: number):Observable<any> {
     return this.https.put(
       environments.baseUrl + `cart/${productId}`,
       {
@@ -35,7 +36,7 @@ export class CartService {
     );
   }
 
-  getAllProdectsInCart() {
+  getAllProdectsInCart(): Observable<any> {
     return this.https.get(environments.baseUrl + 'cart', {
       headers: {
         token: this.auth.getToken() as string,
@@ -43,7 +44,7 @@ export class CartService {
     });
   }
 
-  removeProductFromCart(productId: string) {
+  removeProductFromCart(productId: string): Observable<any> {
     return this.https.delete(environments.baseUrl + `cart/${productId}`, {
       headers: {
         token: this.auth.getToken() as string,
@@ -51,7 +52,7 @@ export class CartService {
     });
   }
 
-  clearAllCart() {
+  clearAllCart(): Observable<any> {
     return this.https.delete(environments.baseUrl + 'cart', {
       headers: {
         token: this.auth.getToken() as string,
