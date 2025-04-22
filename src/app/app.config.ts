@@ -12,12 +12,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
+import { catchErrorInterceptor } from './core/interceptors/catch-error.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch(), withInterceptors([authInterceptor,loadingInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor,loadingInterceptor,catchErrorInterceptor])),
     importProvidersFrom(BrowserAnimationsModule,NgxSpinnerModule),
     provideToastr()
   ],
