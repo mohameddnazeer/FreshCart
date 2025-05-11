@@ -1,10 +1,11 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Product } from '../../models/product';
 import { RouterLink } from '@angular/router';
+import { CurrencyPipe, DatePipe, JsonPipe, LowerCasePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
-  imports: [RouterLink],
+  imports: [RouterLink, DatePipe, CurrencyPipe, UpperCasePipe, LowerCasePipe, TitleCasePipe, JsonPipe],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css',
 })
