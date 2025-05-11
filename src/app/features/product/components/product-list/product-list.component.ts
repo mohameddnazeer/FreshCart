@@ -31,8 +31,8 @@ export class ProductListComponent implements OnInit {
       next: (response) => {
         this.toaster.success('Product added to cart','',{
           progressBar: true,
-
         })
+        this.cartService.cartCounter.next(response.numOfCartItems);
       },
       error: (error) => {
         this.toaster.error(error.error.message,'',{
