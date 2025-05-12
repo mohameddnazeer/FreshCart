@@ -12,7 +12,10 @@
         >{{ product.ratingsAverage }}</span
       >
     </div>
-    <p class="text-sm text-black">{{product.createdAt | date:'mediumDate'}}</p>
+    <div class="flex justify-between items-center">
+      <p class="text-sm text-black">{{product.createdAt | date:'mediumDate'}}</p>
+    <p class="text-sm text-red-600 text-right">{{product.quantity | stockStatus:60}}</p>
+    </div>
   </div>
   <button (click)="onAddToCart()" class="main-btn">Add To Cart</button>
 </div>
